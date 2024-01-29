@@ -11,7 +11,14 @@ h1, h2 {
 }
 h1 {
     text-align: center; /* Center the main title */
+    color: rgb(197, 200, 198);
+    font-family: sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    text-shadow: rgba(167, 170, 168, 0.6) 1px 1px 1px;
+    white-space: pre-line;
     margin-bottom: 0;
+    margin-top: 0;
 }
 input[type=text], input[type=submit], textarea {
     background-color: #373b41; /* Tomorrow Night Comment */
@@ -52,6 +59,8 @@ form {
     color: #c5c8c6;
     display: inline-block; /* Make width adapt to content */
     width: auto; /* Auto width */
+    clear: both; /* Clear floated elements on both sides */
+    
 }
 .op-post {
     background-color: transparent; /* Remove bg color from OP post */
@@ -78,9 +87,39 @@ form {
 blockquote {
     color: #b5bd68; /* Tomorrow Green for blockquotes */
 }
-
-
 .reply-form {
     margin-left: 15px; /* Indent form to match replies */
+}
+
+.opening-post {
+    background-color: transparent; /* Remove background color */
+    padding: 0; /* Remove padding */
+    margin-top: 0; /* Align with title */
+    margin-bottom: 20px;
+}
+.thread-title {
+    color: #b294aa; /* Your chosen color */
+}
+
+.post-content {
+    margin-top: 10px; /* Create space between date and post content */
+    padding-left: 20px; /* Indent post contents */
+}
+.delete-btn {
+    background-color: #282a2e; /* Tomorrow Selection */
+    color: #cc6666; /* Tomorrow Red for delete text */
+    border: none;
+    font-size: 0.8em; /* Smaller font size for delete button */
+    line-height: 1; /* Adjust line height */
+    padding: 0 6px; /* Padding on sides but not top/bottom */
+    cursor: pointer;
+    vertical-align: middle; /* Align with text vertically */
+    margin-left: 5px; /* Spacing from the post number */
+    border-radius: 3px; /* Rounded corners for aesthetics */
+    opacity: 0.5; /* Semi-transparent button by default */
+    transition: opacity 0.2s; /* Transition effect for opacity change */
+}
+.delete-btn:hover {
+    opacity: 1; /* Fully visible on hover */
 }
 

@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Textboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
 </head>
 <body>
+    <center><img src="{{ url_for('static', filename='images/banner.gif') }}"></center>
     <h1>Local Textboard</h1>
     <center><small>Autism</small></center><br>
     <div class="form-container">
@@ -20,20 +22,15 @@
     <div class="threads-container">
         {% for thread in threads %}
             <div class="thread">
-                <b>{{ thread.title }}</b><br>
-                <div class="post op-post">
-                    {% for line in thread.posts[0].split('\n') %}
-                        {% if line.startswith('>') %}
-                            <span class="quote">{{ line }}</span><br>
-                        {% else %}
-                            {{ line }}<br>
+                {% for post in thread.posts %}
+                    <div class="{{ 'opening-post' if loop.first else 'post' }}" id="post-{{ post.number }}">
+                        {% if loop.first %}
+                            <strong class="thread-title">{{ thread.title }}</strong> <!-- Thread title for OP -->
                         {% endif %}
-                    {% endfor %}
-                </div> <!-- Opening Post displayed here -->
-                <div class="replies">
-                    {% for post in thread.posts[1:] %}
-                        <div class="post">
-                            {% for line in post.split('\r\n') %}
+                        <strong>{{ post.name }}</strong> {{ post.date }} No.{{ post.number }}
+                        <button class="delete-btn" data-thread-id="{{ loop.index0 }}" data-post-number="{{ post.number }}">x</button><br>
+                        <div class="post-content">
+                            {% for line in post.content.split('\n') %}
                                 {% if line.startswith('>') %}
                                     <span class="quote">{{ line }}</span><br>
                                 {% else %}
@@ -41,8 +38,8 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
                 <form action="/post/{{ loop.index0 }}" method="post" class="reply-form">
                     <textarea name="content" placeholder="Enter your reply"></textarea>
                     <input type="submit" value="Post">
