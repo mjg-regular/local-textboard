@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Textboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</head>
+<body>
+    <h1>Local Textboard</h1>
+    <center><small>Autism</small></center><br>
+    <div class="form-container">
+        <form action="/create-thread" method="post">
+            <input type="text" name="title" placeholder="Thread Title">
+            <textarea name="content" placeholder="Enter opening post"></textarea>
+            <input type="submit" value="Create Thread">
+        </form>
+    </div>
+    <div class="threads-container">
+        {% for thread in threads %}
+            <div class="thread">
+                <b>{{ thread.title }}</b><br>
+                <div class="post op-post">
+                    {% for line in thread.posts[0].split('\n') %}
+                        {% if line.startswith('>') %}
+                            <span class="quote">{{ line }}</span><br>
+                        {% else %}
+                            {{ line }}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div> <!-- Opening Post displayed here -->
+                <div class="replies">
+                    {% for post in thread.posts[1:] %}
+                        <div class="post">
+                            {% for line in post.split('\r\n') %}
+                                {% if line.startswith('>') %}
+                                    <span class="quote">{{ line }}</span><br>
+                                {% else %}
+                                    {{ line }}<br>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <form action="/post/{{ loop.index0 }}" method="post" class="reply-form">
+                    <textarea name="content" placeholder="Enter your reply"></textarea>
+                    <input type="submit" value="Post">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+/* styles.css */
+body {
+    background-color: #1d1f21; /* Tomorrow Night Background */
+    color: #c5c8c6; /* Tomorrow Night Foreground */
+    font-family: arial,helvetica,sans-serif; /* Font properties for posts */
+    margin: 0;
+    padding: 20px;
+}
+h1, h2 {
+    color: #81a2be; /* Tomorrow Blue for headers */
+}
+h1 {
+    text-align: center; /* Center the main title */
+    margin-bottom: 0;
+}
+input[type=text], input[type=submit], textarea {
+    background-color: #373b41; /* Tomorrow Night Comment */
+    color: #c5c8c6;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    width: 300px; /* Fixed width for text inputs */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+input[type=submit] {
+    background-color: #cc6666; /* Tomorrow Red for buttons */
+    cursor: pointer;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.thread {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start of the container */
+    border-top: 1px solid #373b41; /* Add a top border */
+    padding-top: 20px;
+}
+.thread:first-child {
+    border-top: none; /* Remove top border for the first thread */
+}
+
+.post {
+    background-color: #282a2e; /* Tomorrow Selection */
+    padding: 20px; /* Increase padding for replies */
+    margin-top: 5px;
+    font-family: arial,helvetica,sans-serif; /* Font properties for posts */
+    font-size: 10pt;
+    color: #c5c8c6;
+    display: inline-block; /* Make width adapt to content */
+    width: auto; /* Auto width */
+}
+.op-post {
+    background-color: transparent; /* Remove bg color from OP post */
+    border: none; /* Remove border from OP post */
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.replies {
+    margin-left: 20px; /* Indent replies for visual hierarchy */
+    max-width: fit-content; /* Limit width to content */
+    display: flex; /* Apply flex layout */
+    flex-direction: column; /* Align items vertically */
+    align-items: flex-start; /* Align items to the start of the container */
+}
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align form items vertically */
+    flex-direction: column;
+}
+.quote {
+    color: #b5bd68; /* Tomorrow Green for quotes */
+}
+blockquote {
+    color: #b5bd68; /* Tomorrow Green for blockquotes */
+}
+
+
+.reply-form {
+    margin-left: 15px; /* Indent form to match replies */
+}
+
