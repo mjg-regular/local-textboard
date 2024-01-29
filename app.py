@@ -2,6 +2,8 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import json
 import os
+import webbrowser
+from threading import Timer
 from datetime import datetime  # For timestamping posts
 
 app = Flask(__name__)
@@ -71,5 +73,10 @@ def delete_post():
 # Load threads from file when the application starts
 threads = load_threads()
 
+def open_browser():
+      webbrowser.open_new('http://127.0.0.1:5000/')
+
 if __name__ == '__main__':
-    app.run(debug=True, threaded=False)
+    # Use 'use_reloader=False' to prevent the double start with debug mode
+    Timer(1, open_browser).start()  # Delay opening the web browser for 1 second to allow the server to start
+    app.run(debug=True, use_reloader=False)
