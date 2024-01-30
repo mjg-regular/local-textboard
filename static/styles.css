@@ -201,3 +201,21 @@ a:hover {
     background-color: #282a2e; /* Tomorrow Selection - Darker on hover */
     text-decoration: none; /* No underline on hover */
 }
+
+.tomorrow-style-btn {
+    background-color: #cc6666;
+    border: none;
+    color: #c5c8c6;
+    text-align: center;
+    display: inline-block;
+    font-size: var(--fontsize);
+    transition-duration: 0.4s;
+    cursor: pointer;
+    float: right;
+    margin-top: 5px;
+}
+
+.tomorrow-style-btn:hover {
+    background-color: #c5c8c6;
+    color: #cc6666;
+}

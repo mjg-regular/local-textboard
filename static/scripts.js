@@ -111,13 +111,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    
+
 
     const settingsBtn = document.getElementById('settings-btn');
     const settingsForm = document.getElementById('settings-form');
 
-    settingsBtn.addEventListener('click', function () {
-        const displayStyle = getComputedStyle(settingsForm).display;
-        settingsForm.style.display = displayStyle === 'none' ? 'flex' : 'none';
+    settingsBtn.addEventListener('click', function() {
+        settingsForm.style.display = settingsForm.style.display === 'none' ? 'block' : 'none';
     });
 });
-

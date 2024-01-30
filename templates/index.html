@@ -16,25 +16,26 @@
             <center><img src="{{ url_for('static', filename=settings.banner) }}"></center>
             <h1>{{ settings.title }}</h1>
             <center><small>{{ settings.subtitle }}</small></center><br>
-    <div class="form-container">
-        <form action="/create-thread" method="post">
-            <input type="text" name="title" placeholder="Thread Title">
-            <textarea name="content" placeholder="Enter opening post"></textarea>
-            <input type="submit" value="Create Thread">
-        </form>
-        <div class="form-container">
-            <form action="/update-settings" method="post" style="align-self: flex-end;">
-                <label>Board Name: </label><input type="text" name="title" placeholder="Enter board name">
-                <label>Board Subtitle: </label><input type="text" name="subtitle" placeholder="Enter board subtitle">
-                <label>Board Image: </label><input type="text" name="banner" placeholder="Enter image path">
-                <input type="submit" value="Save Settings">
-            </form>
-            <form action="/delete-board" method="post">
-                <input type="submit" value="Delete Board">
-            </form>
-        </div>
-        
-    </div>
+            <div class="form-container">
+                <form action="/create-thread" method="post">
+                    <input type="text" name="title" placeholder="Thread Title">
+                    <textarea name="content" placeholder="Enter opening post"></textarea>
+                    <input type="submit" value="Create Thread">
+                </form>
+                <button id="settings-btn" class="tomorrow-style-btn">Board Settings</button>
+            </div>
+            <div id="settings-form" style="display: none;">
+                <form action="/update-settings" method="post">
+                    <input type="text" name="title" placeholder="Board Name">
+                    <input type="text" name="subtitle" placeholder="Board Subtitle">
+                    <input type="text" name="banner" placeholder="Board Image (images/[image-name].gif)">
+                    <input type="submit" value="Save Settings">
+                </form>
+                <form action="/delete-board" method="post">
+                    <input type="submit" value="Delete Board">
+                </form>
+            </div>
+            
     <div class="threads-container">
         {% for thread in threads %}
             <div class="thread">
