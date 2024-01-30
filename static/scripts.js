@@ -1,5 +1,17 @@
 /* scripts.js */
+function linkify(text) {
+    const urlRegex = /(\bhttps?:\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '" target="_blank">' + url + '</a>';
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+    // Process existing posts on page load
+    document.querySelectorAll('.post-content').forEach(function (postContentElement) {
+        postContentElement.innerHTML = linkify(postContentElement.innerHTML);
+    });
+
     const forms = document.querySelectorAll("form.reply-form");
     forms.forEach((form) => {
         form.addEventListener("submit", (event) => {
@@ -18,41 +30,45 @@ document.addEventListener("DOMContentLoaded", function () {
                 newPost.classList.add('post');
                 newPost.setAttribute('id', `post-${json.number}`);
 
+                const postDetails = document.createElement('div');
+                postDetails.classList.add('post-details');
+
                 const anonymous = document.createElement('strong');
                 anonymous.textContent = 'Anonymous';
-                newPost.appendChild(anonymous);
+                postDetails.appendChild(anonymous);
 
                 const date = document.createElement('span');
-                date.textContent = ' ' + json.date + ' No.' + json.number;
-                newPost.appendChild(date);
+                date.textContent = ` ${json.date} No.${json.number} `;
+                postDetails.appendChild(date);
 
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'x';
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.setAttribute('data-thread-id', json.thread_id);
                 deleteBtn.setAttribute('data-post-number', json.number);
-                newPost.appendChild(deleteBtn);
+                postDetails.appendChild(deleteBtn);
+
+                newPost.appendChild(postDetails);
 
                 const postContent = document.createElement('div');
                 postContent.classList.add('post-content');
 
+                // Apply linkify function and add quote class if the line starts with '>'
                 const lines = json.content.split('\n');
-                lines.forEach((line, index) => {
+                lines.forEach(line => {
                     const span = document.createElement('span');
                     if (line.startsWith('>')) {
-                        span.classList.add('quote');
+                        span.classList.add('quote'); // Apply greentext styling
                     }
-                    span.textContent = line;
+                    span.innerHTML = linkify(line); // Apply linkify to the line
                     postContent.appendChild(span);
-                    if (index !== lines.length - 1) {
-                        postContent.appendChild(document.createElement('br'));
-                    }
+                    postContent.appendChild(document.createElement('br'));
                 });
 
                 newPost.appendChild(postContent);
 
                 let lastPost = form.parentElement.querySelector('.post:last-of-type');
-                if (!lastPost) { // If there are no '.post', this must be a new thread, find '.opening-post' instead
+                if (!lastPost) {
                     lastPost = form.parentElement.querySelector('.opening-post');
                 }
                 lastPost.after(newPost);
@@ -78,15 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (response.ok) {
                     const postElement = document.getElementById(`post-${postNumber}`);
                     if (postElement && postElement.classList.contains('opening-post')) {
-                        // Remove the thread container
                         postElement.parentNode.remove();
-                        // Update the sidebar catalog
                         const sidebarLink = document.querySelector(`.sidebar-thread-link[href="#post-${postNumber}"]`);
                         if (sidebarLink) {
                             sidebarLink.remove();
                         }
                     } else {
-                        // If it's a reply, just remove that post
                         postElement.remove();
                     }
                 } else {

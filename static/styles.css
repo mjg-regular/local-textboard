@@ -167,3 +167,37 @@ blockquote {
 .sidebar-thread-link:hover {
     background-color: #282a2e; /* Darker color on hover */
 }
+
+a {
+    /* Define styles for general links */
+    color: #81a2be; /* Tomorrow Blue for links */
+    text-decoration: none; /* No underline */
+}
+
+a:visited {
+    /* Ensure visited links don't change color */
+    color: #81a2be; /* Same blue for visited links */
+}
+
+a:hover {
+    /* Add underline on hover for usability */
+    text-decoration: underline;
+}
+
+/* Sidebar-specific link styles */
+.sidebar-thread-link {
+    /* Preserve sidebar link styles */
+    color: #c5c8c6; /* Tomorrow Night Foreground */
+    text-decoration: none; /* No underline */
+}
+
+.sidebar-thread-link:visited {
+    /* Prevent visited links in sidebar from changing color */
+    color: #c5c8c6; /* Same as regular state */
+}
+
+.sidebar-thread-link:hover {
+    /* Add different background on hover for sidebar links */
+    background-color: #282a2e; /* Tomorrow Selection - Darker on hover */
+    text-decoration: none; /* No underline on hover */
+}
