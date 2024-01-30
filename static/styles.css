@@ -213,8 +213,9 @@ a:hover {
     transition-duration: 0.4s;
     cursor: pointer;    
     align-self: flex-end; /* Align self to the end (right) */
-    margin: 5px;
     padding: 5px;
+    width: 100%;
+    margin: 5px 0;
 }
 
 .tomorrow-style-btn:hover {
@@ -234,5 +235,96 @@ input[type=submit] {
 
 .inline-form {
     display: inline-block;
-    margin-bottom: 0;   
+    width: calc(50% - 10px); /* Subtracting the total horizontal margin from 50% width */
+    margin: 0 5px; /* Apply consistent margin */
+}
+
+.active-btn {
+    box-shadow: 0 0 0 2px #cc6666 inset; /* Indicate an active button with an inset shadow */
+    /* You can add more styles if needed to make it clear that the button is active */
+}
+
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0; /* Reset any padding */
+    align-items: stretch; /* This will make child elements fill the container */
+}
+
+.full-width-btn {
+    flex: 1;
+    margin: 5px 0; /* Keep the top and bottom margin consistent */
+    margin-left: 0; /* Ensure no left margin */
+    padding-left: 0; /* Ensure no left padding */
+}
+
+
+.half-width-btn {
+    width: 50%;
+}
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* This centers items vertically */
+    width: 100%; /* It will take up 100% of its parent's width */
+    margin: 0; /* Reset margins */
+    padding: 0; /* Reset padding */
+}
+
+.inline-form, .tomorrow-style-btn {
+    flex-grow: 1;
+}
+
+/* Remove any extra margin or padding that could cause misalignment */
+.buttons-container, .buttons-row {
+    margin: 0;
+    padding: 0;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+.full-width-btn {
+    flex: 1;
+    margin: 5px 0; /* Ensure the horizontal margins are removed */
+}
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensure the container takes up the full width */
+    margin-bottom: 10px;
+    align-items: stretch; /* Stretch items to fill the available space */
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: space-between; /* Place space evenly between child elements */
+    width: 100%; /* It will take up 100% of its parent's width */
+    margin: 0; /* Reset any margin to 0 */
+    padding: 0; /* Reset any padding to 0 */
+}
+
+.full-width-btn, .half-width-btn {
+    margin: 5px 0; /* Consistent margin for vertical spacing */
+}
+
+.inline-form {
+    width: calc(50% - 10px); /* Adjust for margin */
+    margin: 0 5px; /* Consistent margin on all sides */
+}
+
+.board-link {
+    cursor: pointer;   /* Change cursor to indicate clickable */
+    display: block;    /* Display as block for better click area */
+    margin: 5px 0;     /* Add some margin for spacing */
+}
+
+.board-link:hover {
+    text-decoration: underline;  /* Underline to mimic the appearance of a link */
 }

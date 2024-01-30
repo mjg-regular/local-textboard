@@ -1,5 +1,6 @@
 # Import necessary libraries
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import session
 import json
 import os
 import webbrowser
@@ -13,6 +14,9 @@ app = Flask(__name__)
 if not os.path.exists('boards'):
     os.makedirs('boards')
 
+# Set a secret key for sessions
+app.secret_key = 'mikacute'  # Replace with a real secret key
+
 # app.py
 post_counter = 0
 
@@ -23,30 +27,57 @@ threads = []
 settings = {
     "title": "Local Textboard",
     "subtitle": "Autism",
-    "banner": "images/banner.gif"
+    "banner": "banner.gif"
 }
 
 # Helper functions to load and save threads to a JSON file
 def save_threads():
-    with open('threads.json', 'w') as file:
+    # Get the current board filename from the session or default to 'default.json'.
+    filename = session.get('board_file', 'default.json')
+    # Construct the file path relative to the location of `app.py`.
+    file_path = os.path.join(os.path.dirname(__file__), 'boards', filename)
+    with open(file_path, 'w') as file:
         data = {"threads": threads, "settings": settings}
         json.dump(data, file)
 
-def load_threads():
-    if os.path.isfile('threads.json'):
-        with open('threads.json', 'r') as file:
-            data = json.load(file)
-            global settings, post_counter
-            settings = data.get("settings", settings)
-            loaded_threads = data.get("threads", [])
-            if loaded_threads:
-                post_counter = max(post['number'] for thread in loaded_threads for post in thread['posts'])
-            return loaded_threads
-    return []
+def load_threads(filename='default.json'):
+    file_path = os.path.join(os.path.dirname(__file__), 'boards', filename)
+    if not os.path.isfile(file_path):
+        default_board = {
+            "threads": [],
+            "settings": {
+                "title": "Local Textboard",
+                "subtitle": "Autism simulator",
+                "banner": "banner.gif"
+            }
+        }
+        with open(file_path, 'w') as file:
+            json.dump(default_board, file)
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+        global settings, post_counter, threads
+        settings = data.get("settings", settings)
+        threads = data.get("threads", [])
+        if threads:
+            post_counter = max(post['number'] for thread in threads for post in thread['posts'])
+        else:
+            post_counter = 0
+    return threads
+
+
+# Load threads and settings from file when the application starts
+threads = load_threads()
 
 @app.route('/')
 def index():
+    # If a board_file is specified in the query parameter, use it.
+    # Otherwise, fall back to the session or default to 'default.json'.
+    board_file = request.args.get('board_file', session.get('board_file', 'default.json'))
+    # Store the current board filename in the session.
+    session['board_file'] = board_file
+    load_threads(board_file)
     return render_template('index.html', threads=threads, settings=settings)
+
 
 @app.route('/create-board', methods=['POST'])
 def create_board():
@@ -68,19 +99,25 @@ def create_board():
     with open(os.path.join('boards', filename), 'w') as file:
         json.dump(default_board, file)
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index', board_file=filename))  # Pass the new board file as a query parameter
+
 
 
 @app.route('/create-thread', methods=['POST'])
 def create_thread():
-    global post_counter
+    global post_counter, threads, settings  # Ensure we're modifying the global variables
+    board_file = session.get('board_file', 'default.json')  # Get current board file from session
+    threads = load_threads(board_file)  # Load threads from the current board
+
     title = request.form.get('title')
     content = request.form.get('content')
     if title and content:
         post_counter += 1
         threads.append({'title': title, 'posts': [{'name': 'Anonymous', 'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"), 'number': post_counter, 'content': content}]})
-        save_threads()
+        save_threads()  # Save changes to the current board
+
     return redirect(url_for('index'))
+
 
 @app.route('/post/<int:thread_id>', methods=['POST'])
 def post(thread_id):
@@ -100,7 +137,7 @@ def update_settings():
     settings["title"] = request.form.get('title')
     settings["subtitle"] = request.form.get('subtitle')
     settings["banner"] = request.form.get('banner')
-    save_threads()
+    save_threads()  # This should save to the current board file based on the session
     return redirect(url_for('index'))
 
 @app.route('/open-images-folder', methods=['GET'])
@@ -108,6 +145,24 @@ def open_images_folder():
     import subprocess
     subprocess.Popen('explorer "static\\images"')
     return redirect(url_for('index'))
+
+@app.route('/board-list', methods=['GET'])
+def board_list():
+    # Using the script's directory ensures consistent file pathing
+    boards_directory = os.path.join(os.path.dirname(__file__), 'boards')
+    board_files = os.listdir(boards_directory)
+    boards_info = []
+
+    for filename in board_files:
+        # Only process .json files
+        if filename.endswith('.json'):
+            file_path = os.path.join(boards_directory, filename)
+            with open(file_path, 'r') as file:
+                board_data = json.load(file)
+                boards_info.append({'title': board_data['settings']['title'], 'filename': filename})
+
+    return jsonify(boards_info)
+
 
 @app.route('/delete-post', methods=['POST'])
 def delete_post():
@@ -130,10 +185,23 @@ def delete_post():
 
 @app.route('/delete-board', methods=['POST'])
 def delete_board():
-    global threads
-    threads = []
-    save_threads()
-    return redirect(url_for('index'))
+    # Get the current board filename from the session.
+    current_board = session.get('board_file', 'default.json')
+
+    # Ensure you're not trying to delete the default board
+    if current_board and current_board != 'default.json':
+        current_board_path = os.path.join(os.path.dirname(__file__), 'boards', current_board)
+
+        # Check if the file exists before attempting to delete it
+        if os.path.isfile(current_board_path):
+            os.remove(current_board_path)
+            # Clear the session variable for the current board
+            session.pop('board_file', None)
+
+    # Regardless of whether a file was deleted or not, redirect to 'default.json'
+    return redirect(url_for('index', board_file='default.json'))
+
+
 
 # Load threads and settings from file when the application starts
 threads = load_threads()

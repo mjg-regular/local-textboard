@@ -6,6 +6,32 @@ function linkify(text) {
     });
 }
 
+function updateBoardList(display = true) {
+    fetch('/board-list').then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    }).then(boards => {
+        const boardListElement = document.createElement('div');
+        boardListElement.id = 'board-list';
+        boards.forEach(board => {
+            const boardLink = document.createElement('a');
+            boardLink.href = `/?board_file=${board.filename}`;
+            boardLink.textContent = board.title;
+            boardLink.className = 'board-link';  // Apply the new class to board links
+            boardLink.dataset.filename = board.filename; // Optional: store filename as data-attribute for further actions
+            boardListElement.appendChild(boardLink);
+        });
+        const sidebarContent = document.querySelector('.sidebar-content');
+        const currentBoardList = document.getElementById('board-list');
+        if (currentBoardList) currentBoardList.remove();
+        if (display) sidebarContent.appendChild(boardListElement);
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Process existing posts on page load
     document.querySelectorAll('.post-content').forEach(function (postContentElement) {
@@ -119,5 +145,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     settingsBtn.addEventListener('click', function() {
         settingsForm.style.display = settingsForm.style.display === 'none' ? 'block' : 'none';
+        this.classList.toggle('active-btn', settingsForm.style.display === 'block');
+    });
+    const toggleBoardListLink = document.getElementById('toggle-board-list');
+    const catalogHeader = document.getElementById('catalog-header');
+    const threadsContainer = document.querySelector('.threads-content'); // Adjusted target here
+
+    toggleBoardListLink.addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent the default anchor action
+
+        const isBoardsViewActive = this.textContent.includes('show catalog');
+        if (isBoardsViewActive) {
+            // Hide the board list and change the text to "show boards"
+            this.textContent = 'show boards';
+            catalogHeader.innerText = 'Catalog';  // Added line to update header text
+            threadsContainer.style.display = 'block';  // Show the threads container
+            updateBoardList(false); // Call updateBoardList with false to hide it
+        } else {
+            // Show the board list and change the text to "show catalog"
+            this.textContent = 'show catalog';
+            catalogHeader.innerText = 'Boards';  // Added line to update header text
+            threadsContainer.style.display = 'none';  // Hide the threads container
+            updateBoardList(true); // Call updateBoardList with true to show it
+        }
     });
 });

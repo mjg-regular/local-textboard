@@ -58,12 +58,16 @@
 <div class="sidebar">
     <div class="sidebar-content">
         <small>current board: {{ settings.title }}</small><br><br>
-        <button id="settings-btn" class="tomorrow-style-btn">Board Settings</button>
-        <!-- Adding the 'Switch' and 'Create Board' buttons -->
-        <button id="switch-btn" class="tomorrow-style-btn">Switch</button>
-        <form action="/create-board" method="post" class="inline-form">
-            <button type="submit" id="create-board-btn" class="tomorrow-style-btn">Create Board</button>
-        </form>
+        <div class="buttons-container">
+            
+            <div class="buttons-row">
+                <button id="settings-btn" class="tomorrow-style-btn half-width-btn">Board Settings</button>
+                <form action="/create-board" method="post" class="inline-form half-width-btn">
+                    <button type="submit" id="create-board-btn" class="tomorrow-style-btn">Create Board</button>
+                </form>
+            </div>
+            
+        </div>
             <div id="settings-form" style="display: none;">
                 <form action="/update-settings" method="post">
                     <small>Board Name:</small>
@@ -78,12 +82,17 @@
                     <input type="submit" value="Delete Board">
                 </form>
             </div>
-        <center><h2>Catalog</h2></center>
-        {% for thread in threads %}
-            <a href="#post-{{ thread.posts[0].number }}" class="sidebar-thread-link">
-                {{ thread.title }}
-            </a>
-        {% endfor %}
+        <center>
+            <h2 id="catalog-header">Catalog</h2>
+            <small>[<a href="#" id="toggle-board-list">show boards</a>]</small><br><br>
+        </center>
+        <div class="threads-content">
+            {% for thread in threads %}
+                <a href="#post-{{ thread.posts[0].number }}" class="sidebar-thread-link">
+                    {{ thread.title }}
+                </a>
+            {% endfor %}
+        </div>
     </div>
 </div>
 </div>
