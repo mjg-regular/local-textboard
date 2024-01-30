@@ -11,20 +11,33 @@ app = Flask(__name__)
 # Data structure to store threads
 threads = []
 
+# settings for textboard
+settings = {
+    "title": "Local Textboard",
+    "subtitle": "Autism",
+    "banner": "images/banner.gif"
+}
+
 # Helper functions to load and save threads to a JSON file
 def save_threads():
     with open('threads.json', 'w') as file:
-        json.dump(threads, file)
+        data = {"threads": threads, "settings": settings}
+        json.dump(data, file)
+
 
 def load_threads():
     if os.path.isfile('threads.json'):
         with open('threads.json', 'r') as file:
-            return json.load(file)
+            data = json.load(file)
+            global settings
+            settings = data.get("settings", settings)  # If settings key not found, use the default settings.
+            return data.get("threads", [])  # If threads key not found, return an empty list.
     return []
 
 @app.route('/')
 def index():
-    return render_template('index.html', threads=threads)
+    return render_template('index.html', threads=threads, settings=settings)
+
 
 # app.py
 post_counter = 0
@@ -51,6 +64,17 @@ def post(thread_id):
         save_threads()  # Save threads after adding new post
     return jsonify(post)  # Return the new post as JSON
 
+# Update Settings
+@app.route('/update-settings', methods=['POST'])
+def update_settings():
+    global settings
+    settings["title"] = request.form.get('title')
+    settings["subtitle"] = request.form.get('subtitle')
+    settings["banner"] = request.form.get('banner')
+    save_threads()
+    return redirect(url_for('index'))
+
+
 @app.route('/delete-post', methods=['POST'])
 def delete_post():
     global threads
@@ -70,7 +94,14 @@ def delete_post():
     # Return indication if it was an opening post or not
     return jsonify({'is_opening_post': is_opening_post}), 204
 
-# Load threads from file when the application starts
+@app.route('/delete-board', methods=['POST'])
+def delete_board():
+    global threads
+    threads = []
+    save_threads()
+    return redirect(url_for('index'))
+
+# Load threads and settings from file when the application starts
 threads = load_threads()
 
 def open_browser():
