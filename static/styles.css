@@ -1,4 +1,9 @@
 /* styles.css */
+:root {
+    --fontsize: 12pt;
+    --postdist_from_name: 15px;
+  }
+
 body {
     background-color: #1d1f21; /* Tomorrow Night Background */
     color: #c5c8c6; /* Tomorrow Night Foreground */
@@ -52,10 +57,10 @@ form {
 
 .post {
     background-color: #282a2e; /* Tomorrow Selection */
-    padding: 20px; /* Increase padding for replies */
+    padding: 15px; /* Increase padding for replies */
     margin-top: 5px;
     font-family: arial,helvetica,sans-serif; /* Font properties for posts */
-    font-size: 10pt;
+    font-size: var(--fontsize);
     color: #c5c8c6;
     display: inline-block; /* Make width adapt to content */
     width: auto; /* Auto width */
@@ -74,6 +79,7 @@ form {
     display: flex; /* Apply flex layout */
     flex-direction: column; /* Align items vertically */
     align-items: flex-start; /* Align items to the start of the container */
+    font-size: var(--fontsize);
 }
 .form-container {
     display: flex;
@@ -88,7 +94,7 @@ blockquote {
     color: #b5bd68; /* Tomorrow Green for blockquotes */
 }
 .reply-form {
-    margin-left: 15px; /* Indent form to match replies */
+    margin-left: -5px; /* Indent form to match replies */
 }
 
 .opening-post {
@@ -96,13 +102,14 @@ blockquote {
     padding: 0; /* Remove padding */
     margin-top: 0; /* Align with title */
     margin-bottom: 20px;
+    font-size: var(--fontsize);
 }
 .thread-title {
     color: #b294aa; /* Your chosen color */
 }
 
 .post-content {
-    margin-top: 10px; /* Create space between date and post content */
+    margin-top: var(--postdist_from_name); /* Create space between date and post content */
     padding-left: 20px; /* Indent post contents */
 }
 .delete-btn {
@@ -122,8 +129,6 @@ blockquote {
 .delete-btn:hover {
     opacity: 1; /* Fully visible on hover */
 }
-
-
 .content {
     display: flex;
 }
@@ -142,6 +147,7 @@ blockquote {
     background-color: #1d1f21; /* Tomorrow Selection for background */
     padding: 10px;
     border-left: 1px solid #373b41; /* Tomorrow Comment for border */
+    font-size: var(--fontsize);
 }
 
 .sidebar-content {
