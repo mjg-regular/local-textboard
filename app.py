@@ -89,9 +89,9 @@ def create_board():
     default_board = {
         "threads": [],
         "settings": {
-            "title": "MISONO MIKA",
-            "subtitle": "The mika board",
-            "banner": "banner.gif"
+            "title": "/n/ - New Board",
+            "subtitle": "Change the name in the Board Settings!",
+            "banner": "default.gif"
         }
     }
 

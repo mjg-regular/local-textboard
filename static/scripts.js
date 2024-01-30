@@ -169,4 +169,11 @@ document.addEventListener("DOMContentLoaded", function () {
             updateBoardList(true); // Call updateBoardList with true to show it
         }
     });
+
+    // Scroll to Top Event Listener
+    document.getElementById('top-link').addEventListener('click', function(e) {
+        e.preventDefault();  // Prevent default anchor behavior
+        window.scrollTo({ top: 0, behavior: 'smooth' });  // Smoothly scroll to the top of the page
+    });
+
 });

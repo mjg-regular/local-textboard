@@ -13,6 +13,7 @@ body {
 }
 h1, h2 {
     color: #81a2be; /* Tomorrow Blue for headers */
+    margin-bottom: 0;
 }
 h1 {
     text-align: center; /* Center the main title */
@@ -22,7 +23,7 @@ h1 {
     font-weight: 400;
     text-shadow: rgba(167, 170, 168, 0.6) 1px 1px 1px;
     white-space: pre-line;
-    margin-bottom: 0;
+    
     margin-top: 0;
 }
 input[type=text], input[type=submit], textarea {
@@ -101,9 +102,9 @@ blockquote {
 
 .opening-post {
     background-color: transparent; /* Remove background color */
-    padding: 0; /* Remove padding */
     margin-top: 0; /* Align with title */
     margin-bottom: 20px;
+    padding-right: 40px;
     font-size: var(--fontsize);
 }
 .thread-title {
@@ -133,10 +134,17 @@ blockquote {
 }
 .content {
     display: flex;
+    padding: 20px;
+    margin-right: 300px;
+}
+.main-container {
+    flex-grow: 1;
+    /* Add any additional styles needed for main content area here */
 }
 
-.threads-container {
+.main-container {
     flex-grow: 1;
+    /* Add any additional styles needed for main content area here */
 }
 
 .sidebar {
@@ -151,6 +159,7 @@ blockquote {
     border-left: 1px solid #373b41; /* Tomorrow Comment for border */
     font-size: var(--fontsize);
 }
+
 
 .sidebar-content {
     padding: 10px;
@@ -286,8 +295,6 @@ input[type=submit] {
 
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 .full-width-btn {
@@ -328,3 +335,21 @@ input[type=submit] {
 .board-link:hover {
     text-decoration: underline;  /* Underline to mimic the appearance of a link */
 }
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0; /* Align the footer to the right edge of the sidebar */
+    padding-right: 15px; /* Match the sidebar's right padding */
+    padding-bottom: 10px;
+}
+
+#top-link {
+    text-decoration: underline;
+}
+
+#top-link:hover {
+    text-decoration: none;
+}
+
+

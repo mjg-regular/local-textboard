@@ -10,54 +10,60 @@
 </head>
 <body>
     <div class="content">
-        <div class="threads-container">
-
-
-            <center><img src="{{ url_for('static', filename='images/' + settings.banner) }}"></center>
-            <h1>{{ settings.title }}</h1>
-            <center><small>{{ settings.subtitle }}</small></center><br>
-            <div class="form-container">
-                <form action="/create-thread" method="post">
-                    <input type="text" name="title" placeholder="Thread Title">
-                    <textarea name="content" placeholder="Enter opening post"></textarea>
-                    <input type="submit" value="Create Thread">
-                </form>
+        <div class="main-container">
+            <div class="threads-container">
+    
+    
+                <center><img src="{{ url_for('static', filename='images/' + settings.banner) }}" width="300px" height="100px"></center>
+                <h1>{{ settings.title }}</h1>
+                <center><small>{{ settings.subtitle }}</small></center><br>
+                <div class="form-container">
+                    <form action="/create-thread" method="post">
+                        <input type="text" name="title" placeholder="Thread Title" autocomplete="off">
+                        <textarea name="content" placeholder="Enter opening post" autocomplete="off"></textarea>
+                        <input type="submit" value="Create Thread">
+                    </form>
+                    
+                </div>
                 
-            </div>
-            
-    <div class="threads-container">
-        {% for thread in threads %}
-            <div class="thread">
-                {% for post in thread.posts %}
-                    <div class="{{ 'opening-post' if loop.first else 'post' }}" id="post-{{ post.number }}">
-                        {% if loop.first %}
-                            <strong class="thread-title">{{ thread.title }}</strong> <!-- Thread title for OP -->
-                        {% endif %}
-                        <strong>{{ post.name }}</strong> {{ post.date }} No.{{ post.number }}
-                        <button class="delete-btn" data-thread-id="{{ loop.index0 }}" data-post-number="{{ post.number }}">x</button><br>
-                        <div class="post-content">
-                            {% for line in post.content.split('\n') %}
-                                {% if line.startswith('>') %}
-                                    <span class="quote">{{ line }}</span><br>
-                                {% else %}
-                                    {{ line }}<br>
-                                {% endif %}
-                            {% endfor %}
+        <div class="threads-container">
+            {% for thread in threads %}
+                <div class="thread">
+                    {% for post in thread.posts %}
+                        <div class="{{ 'opening-post' if loop.first else 'post' }}" id="post-{{ post.number }}">
+                            {% if loop.first %}
+                                <strong class="thread-title">{{ thread.title }}</strong> <!-- Thread title for OP -->
+                            {% endif %}
+                            <strong>{{ post.name }}</strong> {{ post.date }} No.{{ post.number }}
+                            <button class="delete-btn" data-thread-id="{{ loop.index0 }}" data-post-number="{{ post.number }}">x</button><br>
+                            <div class="post-content">
+                                {% for line in post.content.split('\n') %}
+                                    {% if line.startswith('>') %}
+                                        <span class="quote">{{ line }}</span><br>
+                                    {% else %}
+                                        {{ line }}<br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-                <form action="/post/{{ loop.index0 }}" method="post" class="reply-form">
-                    <textarea name="content" placeholder="Enter your reply"></textarea>
-                    <input type="submit" value="Post">
-                </form>
-            </div>
-        {% endfor %}
+                    {% endfor %}
+                    <form action="/post/{{ loop.index0 }}" method="post" class="reply-form">
+                        <textarea name="content" placeholder="Enter your reply" autocomplete="off"></textarea>
+                        <input type="submit" value="Post">
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    
     </div>
+    
+        </div>
 
-</div>
+
+
 <div class="sidebar">
     <div class="sidebar-content">
-        <small>current board: {{ settings.title }}</small><br><br>
+        <small>current board: <b>{{ settings.title }}</b></small><br><br>
         <div class="buttons-container">
             
             <div class="buttons-row">
@@ -71,11 +77,11 @@
             <div id="settings-form" style="display: none;">
                 <form action="/update-settings" method="post">
                     <small>Board Name:</small>
-                    <input type="text" name="title" placeholder="Board Name" value="{{ settings.title }}">
+                    <input type="text" name="title" placeholder="Board Name" value="{{ settings.title }}" autocomplete="off">
                     <small>Board Subtitle:</small>
-                    <input type="text" name="subtitle" placeholder="Board Subtitle" value="{{ settings.subtitle }}">
+                    <input type="text" name="subtitle" placeholder="Board Subtitle" value="{{ settings.subtitle }}" autocomplete="off">
                     <small>Banner ( <a href="/open-images-folder">open image folder</a> ):</small>
-                    <input type="text" name="banner" placeholder="Banner Image ([image-name].gif)" value="{{ settings.banner }}">
+                    <input type="text" name="banner" placeholder="Banner Image ([image-name].gif)" value="{{ settings.banner }}" autocomplete="off">
                     <input type="submit" value="Save Settings">
                 </form>
                 <form action="/delete-board" method="post" onsubmit="return confirm('Jannie are you okay? Jannie are you okay? Are you okay jannie');">
@@ -93,9 +99,14 @@
                 </a>
             {% endfor %}
         </div>
+
+        <div class="sidebar-footer">
+            <small>Local Textboard v1.0 - <a href="#" id="top-link">[Scroll to Top]</a></small>
+        </div>
     </div>
 </div>
 </div>
+
 
 </body>
 </html>
