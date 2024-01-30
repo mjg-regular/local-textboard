@@ -123,3 +123,41 @@ blockquote {
     opacity: 1; /* Fully visible on hover */
 }
 
+
+.content {
+    display: flex;
+}
+
+.threads-container {
+    flex-grow: 1;
+}
+
+.sidebar {
+    width: 300px;
+    position: fixed; /* Sticky positioning */
+    top: 0;
+    right: 0;
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Enable scrolling */
+    background-color: #1d1f21; /* Tomorrow Selection for background */
+    padding: 10px;
+    border-left: 1px solid #373b41; /* Tomorrow Comment for border */
+}
+
+.sidebar-content {
+    padding: 10px;
+}
+
+.sidebar-thread-link {
+    display: block; /* Make each link a block for better click area */
+    padding: 5px;
+    color: #c5c8c6; /* Tomorrow Night Foreground */
+    text-decoration: none; /* No underline */
+    margin-bottom: 5px;
+    border-radius: 3px; /* Rounded corners for aesthetics */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.sidebar-thread-link:hover {
+    background-color: #282a2e; /* Darker color on hover */
+}

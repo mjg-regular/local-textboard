@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(form.action, {
                 method: 'POST',
                 body: data,
-            }).then((response) => {
-                if(response.ok) {
+            }).then(response => {
+                if (response.ok) {
                     return response.json();
                 }
                 throw new Error('Network response was not ok.');
-            }).then((json) => {
+            }).then(json => {
                 const newPost = document.createElement('div');
                 newPost.classList.add('post');
                 newPost.setAttribute('id', `post-${json.number}`);
@@ -51,20 +51,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 newPost.appendChild(postContent);
 
-                // Find the last '.post' or '.opening-post' in the '.thread' and insert the new post after it
                 let lastPost = form.parentElement.querySelector('.post:last-of-type');
                 if (!lastPost) { // If there are no '.post', this must be a new thread, find '.opening-post' instead
                     lastPost = form.parentElement.querySelector('.opening-post');
                 }
                 lastPost.after(newPost);
                 form.reset();
-            }).catch((error) => {
-                console.error('There has been a problem with your fetch operation:', error);
+            }).catch(error => {
+                console.error('Error:', error);
             });
         });
     });
 
-    // Event delegation to handle click events on delete buttons
     document.addEventListener('click', function (event) {
         if (event.target.matches('.delete-btn')) {
             event.preventDefault();
@@ -78,11 +76,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: `thread_id=${threadId}&post_number=${postNumber}`,
             }).then(response => {
                 if (response.ok) {
-                    // Check if the post to be deleted is an opening post
-                    // If so, delete the whole thread container
                     const postElement = document.getElementById(`post-${postNumber}`);
-                    if(postElement && postElement.classList.contains('opening-post')) {
+                    if (postElement && postElement.classList.contains('opening-post')) {
+                        // Remove the thread container
                         postElement.parentNode.remove();
+                        // Update the sidebar catalog
+                        const sidebarLink = document.querySelector(`.sidebar-thread-link[href="#post-${postNumber}"]`);
+                        if (sidebarLink) {
+                            sidebarLink.remove();
+                        }
                     } else {
                         // If it's a reply, just remove that post
                         postElement.remove();

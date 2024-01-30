@@ -77,6 +77,5 @@ def open_browser():
       webbrowser.open_new('http://127.0.0.1:5000/')
 
 if __name__ == '__main__':
-    # Use 'use_reloader=False' to prevent the double start with debug mode
-    Timer(1, open_browser).start()  # Delay opening the web browser for 1 second to allow the server to start
-    app.run(debug=True, use_reloader=False)
+    Timer(1, open_browser).start()
+    app.run(debug=False, threaded=False)

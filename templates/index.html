@@ -9,6 +9,10 @@
     <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
 </head>
 <body>
+    <div class="content">
+        <div class="threads-container">
+
+
     <center><img src="{{ url_for('static', filename='images/banner.gif') }}"></center>
     <h1>Local Textboard</h1>
     <center><small>Autism</small></center><br>
@@ -47,5 +51,19 @@
             </div>
         {% endfor %}
     </div>
+
+</div>
+<div class="sidebar">
+    <div class="sidebar-content">
+        <center><h2>Catalog</h2></center>
+        {% for thread in threads %}
+            <a href="#post-{{ thread.posts[0].number }}" class="sidebar-thread-link">
+                {{ thread.title }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
 </body>
 </html>
