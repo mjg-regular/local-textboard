@@ -1,42 +1,41 @@
-/* styles.css */
 :root {
     --fontsize: 12pt;
     --postdist_from_name: 15px;
   }
 
 body {
-    background-color: #1d1f21; /* Tomorrow Night Background */
-    color: #c5c8c6; /* Tomorrow Night Foreground */
-    font-family: arial,helvetica,sans-serif; /* Font properties for posts */
+    background-color: #1d1f21; 
+    color: #c5c8c6; 
+    font-family: arial,helvetica,sans-serif; 
     margin: 0;
     padding: 20px;
 }
 h1, h2 {
-    color: #81a2be; /* Tomorrow Blue for headers */
+    color: #81a2be; 
     margin-bottom: 0;
 }
 h1 {
-    text-align: center; /* Center the main title */
+    text-align: center; 
     color: rgb(197, 200, 198);
     font-family: sans-serif;
     font-size: 28px;
     font-weight: 400;
     text-shadow: rgba(167, 170, 168, 0.6) 1px 1px 1px;
     white-space: pre-line;
-    
+
     margin-top: 0;
 }
 input[type=text], input[type=submit], textarea {
-    background-color: #373b41; /* Tomorrow Night Comment */
+    background-color: #373b41; 
     color: #c5c8c6;
     border: none;
     padding: 5px;
     margin: 5px;
-    width: 300px; /* Fixed width for text inputs */
-    box-sizing: border-box; /* Include padding and border in the width */
+    width: 300px; 
+    box-sizing: border-box; 
 }
 input[type=submit] {
-    background-color: #cc6666; /* Tomorrow Red for buttons */
+    background-color: #cc6666; 
     cursor: pointer;
 }
 form {
@@ -48,89 +47,89 @@ form {
 .thread {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align items to the start of the container */
-    border-top: 1px solid #373b41; /* Add a top border */
+    align-items: flex-start; 
+    border-top: 1px solid #373b41; 
     padding-top: 20px;
 }
 .thread:first-child {
-    border-top: none; /* Remove top border for the first thread */
+    border-top: none; 
 }
 
 .post {
-    background-color: #282a2e; /* Tomorrow Selection */
-    padding: 15px; /* Increase padding for replies */
+    background-color: #282a2e; 
+    padding: 15px; 
     margin-top: 5px;
-    font-family: arial,helvetica,sans-serif; /* Font properties for posts */
+    font-family: arial,helvetica,sans-serif; 
     font-size: var(--fontsize);
     color: #c5c8c6;
-    display: inline-block; /* Make width adapt to content */
-    width: auto; /* Auto width */
-    clear: both; /* Clear floated elements on both sides */
-    
+    display: inline-block; 
+    width: auto; 
+    clear: both; 
+
 }
 .op-post {
-    background-color: transparent; /* Remove bg color from OP post */
-    border: none; /* Remove border from OP post */
+    background-color: transparent; 
+    border: none; 
     padding: 10px;
     margin-bottom: 10px;
 }
 .replies {
-    margin-left: 20px; /* Indent replies for visual hierarchy */
-    max-width: fit-content; /* Limit width to content */
-    display: flex; /* Apply flex layout */
-    flex-direction: column; /* Align items vertically */
-    align-items: flex-start; /* Align items to the start of the container */
+    margin-left: 20px; 
+    max-width: fit-content; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
     font-size: var(--fontsize);
 }
 .form-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Change to flex-start to align items to the start */
-    align-items: flex-start; /* Align items to the start */
-    width: 300px; /* Specify width to control alignment */
-    margin: auto; /* Auto margin for horizontal centering */
+    justify-content: flex-start; 
+    align-items: flex-start; 
+    width: 300px; 
+    margin: auto; 
 }
 .quote {
-    color: #b5bd68; /* Tomorrow Green for quotes */
+    color: #b5bd68; 
 }
 blockquote {
-    color: #b5bd68; /* Tomorrow Green for blockquotes */
+    color: #b5bd68; 
 }
 .reply-form {
-    margin-left: -5px; /* Indent form to match replies */
+    margin-left: -5px; 
 }
 
 .opening-post {
-    background-color: transparent; /* Remove background color */
-    margin-top: 0; /* Align with title */
+    background-color: transparent; 
+    margin-top: 0; 
     margin-bottom: 20px;
     padding-right: 40px;
     font-size: var(--fontsize);
 }
 .thread-title {
-    color: #b294aa; /* Your chosen color */
+    color: #b294aa; 
 }
 
 .post-content {
-    margin-top: var(--postdist_from_name); /* Create space between date and post content */
-    padding-left: 20px; /* Indent post contents */
+    margin-top: var(--postdist_from_name); 
+    padding-left: 20px; 
 }
 .delete-btn {
-    background-color: #282a2e; /* Tomorrow Selection */
-    color: #cc6666; /* Tomorrow Red for delete text */
+    background-color: #282a2e; 
+    color: #cc6666; 
     border: none;
-    font-size: 0.8em; /* Smaller font size for delete button */
-    line-height: 1; /* Adjust line height */
-    padding: 0 6px; /* Padding on sides but not top/bottom */
+    font-size: 0.8em; 
+    line-height: 1; 
+    padding: 0 6px; 
     cursor: pointer;
-    vertical-align: middle; /* Align with text vertically */
-    margin-left: 5px; /* Spacing from the post number */
-    border-radius: 3px; /* Rounded corners for aesthetics */
-    opacity: 0.5; /* Semi-transparent button by default */
-    transition: opacity 0.2s; /* Transition effect for opacity change */
+    vertical-align: middle; 
+    margin-left: 5px; 
+    border-radius: 3px; 
+    opacity: 0.5; 
+    transition: opacity 0.2s; 
 }
 .delete-btn:hover {
-    opacity: 1; /* Fully visible on hover */
+    opacity: 1; 
 }
 .content {
     display: flex;
@@ -139,78 +138,76 @@ blockquote {
 }
 .main-container {
     flex-grow: 1;
-    /* Add any additional styles needed for main content area here */
+
 }
 
 .main-container {
     flex-grow: 1;
-    /* Add any additional styles needed for main content area here */
+
 }
 
 .sidebar {
     width: 300px;
-    position: fixed; /* Sticky positioning */
+    position: fixed; 
     top: 0;
     right: 0;
-    height: 100vh; /* Full viewport height */
-    overflow-y: auto; /* Enable scrolling */
-    background-color: #1d1f21; /* Tomorrow Selection for background */
+    height: 100vh; 
+    overflow-y: auto; 
+    background-color: #1d1f21; 
     padding: 10px;
-    border-left: 1px solid #373b41; /* Tomorrow Comment for border */
+    border-left: 1px solid #373b41; 
     font-size: var(--fontsize);
 }
-
 
 .sidebar-content {
     padding: 10px;
 }
 
 .sidebar-thread-link {
-    display: block; /* Make each link a block for better click area */
+    display: block; 
     padding: 5px;
-    color: #c5c8c6; /* Tomorrow Night Foreground */
-    text-decoration: none; /* No underline */
+    color: #c5c8c6; 
+    text-decoration: none; 
     margin-bottom: 5px;
-    border-radius: 3px; /* Rounded corners for aesthetics */
-    transition: background-color 0.3s; /* Smooth transition for hover */
+    border-radius: 3px; 
+    transition: background-color 0.3s; 
 }
 
 .sidebar-thread-link:hover {
-    background-color: #282a2e; /* Darker color on hover */
+    background-color: #282a2e; 
 }
 
 a {
-    /* Define styles for general links */
-    color: #81a2be; /* Tomorrow Blue for links */
-    text-decoration: none; /* No underline */
+
+    color: #81a2be; 
+    text-decoration: none; 
 }
 
 a:visited {
-    /* Ensure visited links don't change color */
-    color: #81a2be; /* Same blue for visited links */
+
+    color: #81a2be; 
 }
 
 a:hover {
-    /* Add underline on hover for usability */
+
     text-decoration: underline;
 }
 
-/* Sidebar-specific link styles */
 .sidebar-thread-link {
-    /* Preserve sidebar link styles */
-    color: #c5c8c6; /* Tomorrow Night Foreground */
-    text-decoration: none; /* No underline */
+
+    color: #c5c8c6; 
+    text-decoration: none; 
 }
 
 .sidebar-thread-link:visited {
-    /* Prevent visited links in sidebar from changing color */
-    color: #c5c8c6; /* Same as regular state */
+
+    color: #c5c8c6; 
 }
 
 .sidebar-thread-link:hover {
-    /* Add different background on hover for sidebar links */
-    background-color: #282a2e; /* Tomorrow Selection - Darker on hover */
-    text-decoration: none; /* No underline on hover */
+
+    background-color: #282a2e; 
+    text-decoration: none; 
 }
 
 .tomorrow-style-btn {
@@ -221,7 +218,7 @@ a:hover {
     display: inline-block;
     transition-duration: 0.4s;
     cursor: pointer;    
-    align-self: flex-end; /* Align self to the end (right) */
+    align-self: flex-end; 
     padding: 5px;
     width: 100%;
     margin: 5px 0;
@@ -233,7 +230,7 @@ a:hover {
 }
 
 input[type=text] {
-    max-width: 100%; /* Limits the width to the parent's width */
+    max-width: 100%; 
 }
 input[type=submit] {
     max-width: 100%;
@@ -244,32 +241,30 @@ input[type=submit] {
 
 .inline-form {
     display: inline-block;
-    width: calc(50% - 10px); /* Subtracting the total horizontal margin from 50% width */
-    margin: 0 5px; /* Apply consistent margin */
+    width: calc(50% - 10px); 
+    margin: 0 5px; 
 }
 
 .active-btn {
-    box-shadow: 0 0 0 2px #cc6666 inset; /* Indicate an active button with an inset shadow */
-    /* You can add more styles if needed to make it clear that the button is active */
-}
+    box-shadow: 0 0 0 2px #cc6666 inset; 
 
+}
 
 .buttons-container {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-bottom: 10px;
-    padding: 0; /* Reset any padding */
-    align-items: stretch; /* This will make child elements fill the container */
+    padding: 0; 
+    align-items: stretch; 
 }
 
 .full-width-btn {
     flex: 1;
-    margin: 5px 0; /* Keep the top and bottom margin consistent */
-    margin-left: 0; /* Ensure no left margin */
-    padding-left: 0; /* Ensure no left padding */
+    margin: 5px 0; 
+    margin-left: 0; 
+    padding-left: 0; 
 }
-
 
 .half-width-btn {
     width: 50%;
@@ -277,70 +272,68 @@ input[type=submit] {
 .buttons-row {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* This centers items vertically */
-    width: 100%; /* It will take up 100% of its parent's width */
-    margin: 0; /* Reset margins */
-    padding: 0; /* Reset padding */
+    align-items: center; 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
 }
 
 .inline-form, .tomorrow-style-btn {
     flex-grow: 1;
 }
 
-/* Remove any extra margin or padding that could cause misalignment */
 .buttons-container, .buttons-row {
     margin: 0;
     padding: 0;
 }
 
-
 * {
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; 
 }
 .full-width-btn {
     flex: 1;
-    margin: 5px 0; /* Ensure the horizontal margins are removed */
+    margin: 5px 0; 
 }
 .buttons-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ensure the container takes up the full width */
+    width: 100%; 
     margin-bottom: 10px;
-    align-items: stretch; /* Stretch items to fill the available space */
+    align-items: stretch; 
 }
 
 .buttons-row {
     display: flex;
-    justify-content: space-between; /* Place space evenly between child elements */
-    width: 100%; /* It will take up 100% of its parent's width */
-    margin: 0; /* Reset any margin to 0 */
-    padding: 0; /* Reset any padding to 0 */
+    justify-content: space-between; 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
 }
 
 .full-width-btn, .half-width-btn {
-    margin: 5px 0; /* Consistent margin for vertical spacing */
+    margin: 5px 0; 
 }
 
 .inline-form {
-    width: calc(50% - 10px); /* Adjust for margin */
-    margin: 0 5px; /* Consistent margin on all sides */
+    width: calc(50% - 10px); 
+    margin: 0 5px; 
 }
 
 .board-link {
-    cursor: pointer;   /* Change cursor to indicate clickable */
-    display: block;    /* Display as block for better click area */
-    margin: 5px 0;     /* Add some margin for spacing */
+    cursor: pointer;   
+    display: block;    
+    margin: 5px 0;     
 }
 
 .board-link:hover {
-    text-decoration: underline;  /* Underline to mimic the appearance of a link */
+    text-decoration: underline;  
 }
 
 .sidebar-footer {
     position: absolute;
     bottom: 0;
-    right: 0; /* Align the footer to the right edge of the sidebar */
-    padding-right: 15px; /* Match the sidebar's right padding */
+    right: 0; 
+    padding-right: 15px; 
     padding-bottom: 10px;
 }
 
@@ -351,5 +344,3 @@ input[type=submit] {
 #top-link:hover {
     text-decoration: none;
 }
-
-
