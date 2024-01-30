@@ -27,7 +27,6 @@ def save_threads():
         data = {"threads": threads, "settings": settings}
         json.dump(data, file)
 
-
 def load_threads():
     if os.path.isfile('threads.json'):
         with open('threads.json', 'r') as file:
@@ -40,13 +39,9 @@ def load_threads():
             return loaded_threads
     return []
 
-
 @app.route('/')
 def index():
     return render_template('index.html', threads=threads, settings=settings)
-
-
-
 
 @app.route('/create-thread', methods=['POST'])
 def create_thread():
@@ -85,7 +80,6 @@ def open_images_folder():
     import subprocess
     subprocess.Popen('explorer "static\\images"')
     return redirect(url_for('index'))
-
 
 @app.route('/delete-post', methods=['POST'])
 def delete_post():

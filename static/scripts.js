@@ -82,6 +82,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('click', function (event) {
         if (event.target.matches('.delete-btn')) {
             event.preventDefault();
+            const confirmation = confirm('Delete this post, jannie?');
+            if (!confirmation) {
+                return; // If the user did not confirm, we exit here, and the rest of the delete code will not execute.
+            }
             const postNumber = event.target.dataset.postNumber;
             const threadId = event.target.dataset.threadId;
             fetch(`/delete-post`, {
@@ -110,10 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
-
-    
-
-
     const settingsBtn = document.getElementById('settings-btn');
     const settingsForm = document.getElementById('settings-form');
 
