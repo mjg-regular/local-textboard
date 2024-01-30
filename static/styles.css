@@ -231,3 +231,8 @@ input[type=submit] {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.inline-form {
+    display: inline-block;
+    margin-bottom: 0;   
+}

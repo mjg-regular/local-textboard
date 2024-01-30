@@ -57,7 +57,13 @@
 </div>
 <div class="sidebar">
     <div class="sidebar-content">
+        <small>current board: {{ settings.title }}</small><br><br>
         <button id="settings-btn" class="tomorrow-style-btn">Board Settings</button>
+        <!-- Adding the 'Switch' and 'Create Board' buttons -->
+        <button id="switch-btn" class="tomorrow-style-btn">Switch</button>
+        <form action="/create-board" method="post" class="inline-form">
+            <button type="submit" id="create-board-btn" class="tomorrow-style-btn">Create Board</button>
+        </form>
             <div id="settings-form" style="display: none;">
                 <form action="/update-settings" method="post">
                     <small>Board Name:</small>

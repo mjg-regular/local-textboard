@@ -6,7 +6,12 @@ import webbrowser
 from threading import Timer
 from datetime import datetime  # For timestamping posts
 
+
 app = Flask(__name__)
+
+# Ensure 'boards' directory exists
+if not os.path.exists('boards'):
+    os.makedirs('boards')
 
 # app.py
 post_counter = 0
@@ -42,6 +47,29 @@ def load_threads():
 @app.route('/')
 def index():
     return render_template('index.html', threads=threads, settings=settings)
+
+@app.route('/create-board', methods=['POST'])
+def create_board():
+    # Generate a unique filename for the new board
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    filename = f'board_{timestamp}.json'
+
+    # Define the default content for a new board
+    default_board = {
+        "threads": [],
+        "settings": {
+            "title": "MISONO MIKA",
+            "subtitle": "The mika board",
+            "banner": "banner.gif"
+        }
+    }
+
+    # Create the new board file with default content
+    with open(os.path.join('boards', filename), 'w') as file:
+        json.dump(default_board, file)
+
+    return redirect(url_for('index'))
+
 
 @app.route('/create-thread', methods=['POST'])
 def create_thread():
