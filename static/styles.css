@@ -83,9 +83,11 @@ form {
 }
 .form-container {
     display: flex;
-    justify-content: center;
-    align-items: center; /* Align form items vertically */
     flex-direction: column;
+    justify-content: flex-start; /* Change to flex-start to align items to the start */
+    align-items: flex-start; /* Align items to the start */
+    width: 300px; /* Specify width to control alignment */
+    margin: auto; /* Auto margin for horizontal centering */
 }
 .quote {
     color: #b5bd68; /* Tomorrow Green for quotes */
@@ -208,14 +210,24 @@ a:hover {
     color: #c5c8c6;
     text-align: center;
     display: inline-block;
-    font-size: var(--fontsize);
     transition-duration: 0.4s;
-    cursor: pointer;
-    float: right;
-    margin-top: 5px;
+    cursor: pointer;    
+    align-self: flex-end; /* Align self to the end (right) */
+    margin: 5px;
+    padding: 5px;
 }
 
 .tomorrow-style-btn:hover {
     background-color: #c5c8c6;
     color: #cc6666;
+}
+
+input[type=text] {
+    max-width: 100%; /* Limits the width to the parent's width */
+}
+input[type=submit] {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

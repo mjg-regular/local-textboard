@@ -22,18 +22,7 @@
                     <textarea name="content" placeholder="Enter opening post"></textarea>
                     <input type="submit" value="Create Thread">
                 </form>
-                <button id="settings-btn" class="tomorrow-style-btn">Board Settings</button>
-            </div>
-            <div id="settings-form" style="display: none;">
-                <form action="/update-settings" method="post">
-                    <input type="text" name="title" placeholder="Board Name">
-                    <input type="text" name="subtitle" placeholder="Board Subtitle">
-                    <input type="text" name="banner" placeholder="Board Image (images/[image-name].gif)">
-                    <input type="submit" value="Save Settings">
-                </form>
-                <form action="/delete-board" method="post">
-                    <input type="submit" value="Delete Board">
-                </form>
+                
             </div>
             
     <div class="threads-container">
@@ -68,6 +57,21 @@
 </div>
 <div class="sidebar">
     <div class="sidebar-content">
+        <button id="settings-btn" class="tomorrow-style-btn">Board Settings</button>
+            <div id="settings-form" style="display: none;">
+                <form action="/update-settings" method="post">
+                    <small>Board Name:</small>
+                    <input type="text" name="title" placeholder="Board Name" value="{{ settings.title }}">
+                    <small>Board Subtitle:</small>
+                    <input type="text" name="subtitle" placeholder="Board Subtitle" value="{{ settings.subtitle }}">
+                    <small>Banner:</small>
+                    <input type="text" name="banner" placeholder="Board Image (images/[image-name].gif)" value="{{ settings.banner }}">
+                    <input type="submit" value="Save Settings">
+                </form>
+                <form action="/delete-board" method="post">
+                    <input type="submit" value="Delete Board">
+                </form>
+            </div>
         <center><h2>Catalog</h2></center>
         {% for thread in threads %}
             <a href="#post-{{ thread.posts[0].number }}" class="sidebar-thread-link">
