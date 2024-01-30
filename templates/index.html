@@ -13,7 +13,7 @@
         <div class="threads-container">
 
 
-            <center><img src="{{ url_for('static', filename=settings.banner) }}"></center>
+            <center><img src="{{ url_for('static', filename='images/' + settings.banner) }}"></center>
             <h1>{{ settings.title }}</h1>
             <center><small>{{ settings.subtitle }}</small></center><br>
             <div class="form-container">
@@ -64,8 +64,8 @@
                     <input type="text" name="title" placeholder="Board Name" value="{{ settings.title }}">
                     <small>Board Subtitle:</small>
                     <input type="text" name="subtitle" placeholder="Board Subtitle" value="{{ settings.subtitle }}">
-                    <small>Banner:</small>
-                    <input type="text" name="banner" placeholder="Board Image (images/[image-name].gif)" value="{{ settings.banner }}">
+                    <small>Banner ( <a href="/open-images-folder">open image folder</a> ):</small>
+                    <input type="text" name="banner" placeholder="Banner Image ([image-name].gif)" value="{{ settings.banner }}">
                     <input type="submit" value="Save Settings">
                 </form>
                 <form action="/delete-board" method="post">

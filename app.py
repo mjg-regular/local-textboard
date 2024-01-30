@@ -8,6 +8,9 @@ from datetime import datetime  # For timestamping posts
 
 app = Flask(__name__)
 
+# app.py
+post_counter = 0
+
 # Data structure to store threads
 threads = []
 
@@ -29,28 +32,31 @@ def load_threads():
     if os.path.isfile('threads.json'):
         with open('threads.json', 'r') as file:
             data = json.load(file)
-            global settings
-            settings = data.get("settings", settings)  # If settings key not found, use the default settings.
-            return data.get("threads", [])  # If threads key not found, return an empty list.
+            global settings, post_counter
+            settings = data.get("settings", settings)
+            loaded_threads = data.get("threads", [])
+            if loaded_threads:
+                post_counter = max(post['number'] for thread in loaded_threads for post in thread['posts'])
+            return loaded_threads
     return []
+
 
 @app.route('/')
 def index():
     return render_template('index.html', threads=threads, settings=settings)
 
 
-# app.py
-post_counter = 0
+
 
 @app.route('/create-thread', methods=['POST'])
 def create_thread():
     global post_counter
     title = request.form.get('title')
-    content = request.form.get('content')  # Get the opening post content
-    if title and content:  # Make sure both title and content are provided
+    content = request.form.get('content')
+    if title and content:
         post_counter += 1
-        threads.append({'title': title, 'posts': [{'name': 'Anonymous', 'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"), 'number': post_counter, 'content': content}]})  # Save the opening post along with the title, date and number
-        save_threads()  # Save threads after adding new thread
+        threads.append({'title': title, 'posts': [{'name': 'Anonymous', 'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"), 'number': post_counter, 'content': content}]})
+        save_threads()
     return redirect(url_for('index'))
 
 @app.route('/post/<int:thread_id>', methods=['POST'])
@@ -61,8 +67,8 @@ def post(thread_id):
         post_counter += 1
         post = {'name': 'Anonymous', 'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"), 'number': post_counter, 'content': content}
         threads[thread_id]['posts'].append(post)
-        save_threads()  # Save threads after adding new post
-    return jsonify(post)  # Return the new post as JSON
+        save_threads()
+    return jsonify(post)
 
 # Update Settings
 @app.route('/update-settings', methods=['POST'])
@@ -72,6 +78,12 @@ def update_settings():
     settings["subtitle"] = request.form.get('subtitle')
     settings["banner"] = request.form.get('banner')
     save_threads()
+    return redirect(url_for('index'))
+
+@app.route('/open-images-folder', methods=['GET'])
+def open_images_folder():
+    import subprocess
+    subprocess.Popen('explorer "static\\images"')
     return redirect(url_for('index'))
 
 
