@@ -63,8 +63,10 @@ form {
     font-size: var(--fontsize);
     color: #c5c8c6;
     display: inline-block; 
-    width: auto; 
     clear: both; 
+    width: calc(100% - 40px); /* Assuming a 20px padding from `.post-content` */
+    max-width: 100%;
+    vertical-align: top;
 
 }
 .op-post {
@@ -111,8 +113,11 @@ blockquote {
 }
 
 .post-content {
-    margin-top: var(--postdist_from_name); 
-    padding-left: 20px; 
+    margin-top: var(--postdist_from_name);
+    padding-left: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 .delete-btn {
     background-color: #282a2e; 
@@ -344,3 +349,4 @@ input[type=submit] {
 #top-link:hover {
     text-decoration: none;
 }
+

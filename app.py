@@ -8,7 +8,7 @@ from threading import Timer
 from datetime import datetime  # For timestamping posts
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # Ensure 'boards' directory exists
 if not os.path.exists('boards'):
