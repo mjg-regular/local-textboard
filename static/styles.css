@@ -64,8 +64,9 @@ form {
     color: #c5c8c6;
     display: inline-block; 
     clear: both; 
-    width: calc(100% - 40px); /* Assuming a 20px padding from `.post-content` */
-    max-width: 100%;
+    /* width: calc(100% - 40px); Assuming a 20px padding from `.post-content` */
+    /* max-width: 100%; */
+    width: auto; 
     vertical-align: top;
 
 }
@@ -349,4 +350,3 @@ input[type=submit] {
 #top-link:hover {
     text-decoration: none;
 }
-
