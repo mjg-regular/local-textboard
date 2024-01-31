@@ -31,6 +31,24 @@ function updateBoardList(display = true) {
     });
 }
 
+// function updateThreadList() {
+//     fetch('/').then(response => {
+//         if (response.ok) {
+//             return response.text();
+//         }
+//         throw new Error('Network response was not ok.');
+//     }).then(html => {
+//         const parser = new DOMParser();
+//         const doc = parser.parseFromString(html, 'text/html');
+//         const newThreadsContent = doc.querySelector('.threads-content');
+//         const oldThreadsContent = document.querySelector('.threads-content');
+//         oldThreadsContent.innerHTML = newThreadsContent.innerHTML;
+//     }).catch(error => {
+//         console.error('Error:', error);
+//     });
+// }
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Process existing posts on page load
     document.querySelectorAll('.post-content').forEach(function (postContentElement) {
@@ -98,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 lastPost.after(newPost);
                 form.reset();
+                // updateThreadList();
             }).catch(error => {
                 console.error('Error:', error);
             });

@@ -76,6 +76,8 @@ def index():
     # Store the current board filename in the session.
     session['board_file'] = board_file
     load_threads(board_file)
+    # Sort threads by the date of the last post in descending order
+    threads.sort(key=lambda x: datetime.strptime(x['posts'][-1]['date'], "%m/%d/%Y, %H:%M:%S"), reverse=True)
     return render_template('index.html', threads=threads, settings=settings)
 
 
@@ -153,13 +155,29 @@ def board_list():
     board_files = os.listdir(boards_directory)
     boards_info = []
 
+    # Retrieve the latest post date for each board and store it
     for filename in board_files:
         # Only process .json files
         if filename.endswith('.json'):
             file_path = os.path.join(boards_directory, filename)
             with open(file_path, 'r') as file:
                 board_data = json.load(file)
-                boards_info.append({'title': board_data['settings']['title'], 'filename': filename})
+                latest_post_date = None
+                # Check if there are threads and posts in the board
+                if board_data['threads']:
+                    # Get the last post's date from the latest thread
+                    latest_post_date = board_data['threads'][0]['posts'][-1]['date']
+                    latest_post_date = datetime.strptime(latest_post_date, "%m/%d/%Y, %H:%M:%S")
+                boards_info.append({'title': board_data['settings']['title'], 'filename': filename, 'latest_post_date': latest_post_date})
+
+    # Ensure 'default.json' is prioritized at the top of the list
+    default_board = next((board for board in boards_info if board['filename'] == 'default.json'), None)
+    if default_board:
+        boards_info.remove(default_board)
+        boards_info.sort(key=lambda x: x['latest_post_date'] if x['latest_post_date'] else datetime.min, reverse=True)
+        boards_info.insert(0, default_board)  # Add default board at the beginning
+    else:
+        boards_info.sort(key=lambda x: x['latest_post_date'] if x['latest_post_date'] else datetime.min, reverse=True)
 
     return jsonify(boards_info)
 
